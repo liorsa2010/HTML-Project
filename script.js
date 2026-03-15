@@ -10,7 +10,7 @@ if (form) {
         const subjectInput = document.getElementById("subject");
         const messageInput = document.getElementById("message");
 
-        const name    = nameInput.value.trim();
+        const name    = nameInput.value.trim(); 
         const email   = emailInput.value.trim();
         const phone   = phoneInput.value.trim(); 
         const subject = subjectInput.value.trim();

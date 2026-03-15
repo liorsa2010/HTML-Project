@@ -31,7 +31,7 @@ if (form) {
             document.getElementById(errorId).style.display = "none";
         }
 
-        if (name.length < 3) {
+        if (name.length <= 3) {
             showError(nameInput, "nameError");
         } else {
             clearError(nameInput, "nameError");
@@ -51,13 +51,13 @@ if (form) {
             clearError(phoneInput, "phoneError");
         }
 
-        if (subject.length < 5) {
+        if (subject.length <= 5) {
             showError(subjectInput, "subjectError");
         } else {
             clearError(subjectInput, "subjectError");
         }
 
-        if (message.length < 10) {
+        if (message.length <= 10) {
             showError(messageInput, "messageError");
         } else {
             clearError(messageInput, "messageError");

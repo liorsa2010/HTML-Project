@@ -1,46 +1,85 @@
-const form = document.querySelector("form");
+const form = document.getElementById("contactForm"); 
 
-form.addEventListener("submit", function (e) {
-    e.preventDefault();
+if (form) {
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
 
-    const name = document.querySelector("#name").value;
-    const email = document.querySelector("#email").value;
-    const phone = document.querySelector("#phone").value;
-    const subject = document.querySelector("#subject").value;
-    const message = document.querySelector("#message").value;
+        const nameInput    = document.getElementById("name");
+        const emailInput   = document.getElementById("email");
+        const phoneInput   = document.getElementById("phone");
+        const subjectInput = document.getElementById("subject");
+        const messageInput = document.getElementById("message");
 
-    if (name.length < 5) {
-        alert("Name must be at least 5 characters");
-        return;
-    }
+        const name    = nameInput.value.trim(); 
+        const email   = emailInput.value.trim();
+        const phone   = phoneInput.value.trim();
+        const subject = subjectInput.value.trim();
+        const message = messageInput.value.trim();
 
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-        alert("Please enter a valid email address");
-        return;
-    }
+        let isValid = true; 
+        function showError(input, errorId) {
+            input.classList.add("invalid");
+            input.classList.remove("valid");
+            document.getElementById(errorId).style.display = "block";
+            isValid = false;
+        }
 
-    const phonePattern = /^[0-9]{10,}$/;
-    if (!phonePattern.test(phone)) {
-        alert("Phone number must contain at least 10 digits");
-        return;
-    }
+        function clearError(input, errorId) {
+            input.classList.remove("invalid");
+            input.classList.add("valid");
+            document.getElementById(errorId).style.display = "none";
+        }
 
-    if (subject.length < 5) {
-        alert("Subject must be at least 5 characters");
-        return;
-    }
+        if (name.length < 3) {
+            showError(nameInput, "nameError");
+        } else {
+            clearError(nameInput, "nameError");
+        }
 
-    if (message.length < 20) {
-        alert("Message must be at least 20 characters");
-        return;
-    }
+      
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            showError(emailInput, "emailError");
+        } else {
+            clearError(emailInput, "emailError");
+        }
 
-    alert("Message sent successfully!");
 
-    console.log(name);
-    console.log(email);
-    console.log(phone);
-    console.log(subject);
-    console.log(message);
-});
+        const phonePattern = /^[0-9]{10,}$/;
+        if (!phonePattern.test(phone.replace(/[-\s]/g, ""))) {
+            showError(phoneInput, "phoneError");
+        } else {
+            clearError(phoneInput, "phoneError");
+        }
+
+   
+        if (subject.length < 5) {
+            showError(subjectInput, "subjectError");
+        } else {
+            clearError(subjectInput, "subjectError");
+        }
+
+    
+        if (message.length < 10) {
+            showError(messageInput, "messageError");
+        } else {
+            clearError(messageInput, "messageError");
+        }
+
+   
+        if (isValid) {
+            const banner = document.getElementById("successBanner");
+            banner.style.display = "block";
+            form.reset(); 
+
+            [nameInput, emailInput, phoneInput, subjectInput, messageInput].forEach(input => {
+                input.classList.remove("valid");
+            });
+
+            setTimeout(() => {
+                banner.style.display = "none";
+            }, 5000);
+
+        }
+    });
+}

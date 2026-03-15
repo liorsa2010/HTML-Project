@@ -4,40 +4,77 @@ if (form) {
     form.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        const name    = document.getElementById("name").value.trim();
-        const email   = document.getElementById("email").value.trim();
-        const phone   = document.getElementById("phone").value.trim();
-        const subject = document.getElementById("subject").value.trim();
-        const message = document.getElementById("message").value.trim();
+        const nameInput    = document.getElementById("name");
+        const emailInput   = document.getElementById("email");
+        const phoneInput   = document.getElementById("phone");
+        const subjectInput = document.getElementById("subject");
+        const messageInput = document.getElementById("message");
+
+        const name    = nameInput.value.trim();
+        const email   = emailInput.value.trim();
+        const phone   = phoneInput.value.trim();
+        const subject = subjectInput.value.trim();
+        const message = messageInput.value.trim();
+
+        let isValid = true;
+
+        function showError(input, errorId) {
+            input.classList.add("invalid");
+            input.classList.remove("valid");
+            document.getElementById(errorId).style.display = "block";
+            isValid = false;
+        }
+
+        function clearError(input, errorId) {
+            input.classList.remove("invalid");
+            input.classList.add("valid");
+            document.getElementById(errorId).style.display = "none";
+        }
 
         if (name.length < 3) {
-            alert("Invalid name");
-            return;
+            showError(nameInput, "nameError");
+        } else {
+            clearError(nameInput, "nameError");
         }
 
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailPattern.test(email)) {
-            alert("Invalid email address");
-            return;
+            showError(emailInput, "emailError");
+        } else {
+            clearError(emailInput, "emailError");
         }
 
         const phonePattern = /^[0-9]{10,}$/;
         if (!phonePattern.test(phone.replace(/[-\s]/g, ""))) {
-            alert("Invalid phone number");
-            return;
+            showError(phoneInput, "phoneError");
+        } else {
+            clearError(phoneInput, "phoneError");
         }
 
         if (subject.length < 5) {
-            alert("Invalid subject");
-            return;
+            showError(subjectInput, "subjectError");
+        } else {
+            clearError(subjectInput, "subjectError");
         }
 
         if (message.length < 10) {
-            alert("Invalid message");
-            return;
+            showError(messageInput, "messageError");
+        } else {
+            clearError(messageInput, "messageError");
         }
 
-        alert("Message sent successfully!");
-        form.reset();
+        if (isValid) {
+            const banner = document.getElementById("successBanner");
+            banner.style.display = "block";
+            form.reset();
+
+            [nameInput, emailInput, phoneInput, subjectInput, messageInput].forEach(input => {
+                input.classList.remove("valid");
+            });
+
+            setTimeout(() => {
+                banner.style.display = "none";
+            }, 5000);
+        }
     });
 }

@@ -6,7 +6,7 @@ if (form) {
 
         const nameInput    = document.getElementById("name");
         const emailInput   = document.getElementById("email");
-        const phoneInput   = document.getElementById("phone");
+        const phoneInput   = document.getElementById("phone"); 
         const subjectInput = document.getElementById("subject");
         const messageInput = document.getElementById("message");
 

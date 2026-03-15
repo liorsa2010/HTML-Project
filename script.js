@@ -12,7 +12,7 @@ if (form) {
 
         const name    = nameInput.value.trim();
         const email   = emailInput.value.trim();
-        const phone   = phoneInput.value.trim();
+        const phone   = phoneInput.value.trim(); 
         const subject = subjectInput.value.trim();
         const message = messageInput.value.trim(); 
 

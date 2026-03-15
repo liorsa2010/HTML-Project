@@ -553,6 +553,9 @@ h1 {
     line-height: 1.6;
 }
 
+.info-text a{
+    color:white;
+}
 .contact-form {
     background: #4A0808;
     border-radius: 40px;

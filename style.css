@@ -556,6 +556,12 @@ h1 {
 .info-text a{
     color:white;
 }
+
+.info-text a:hover{
+    color:red;
+    transition: 0.7s;
+}
+
 .contact-form {
     background: #4A0808;
     border-radius: 40px;

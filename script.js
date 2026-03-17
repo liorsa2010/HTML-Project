@@ -6,15 +6,15 @@ if (form) {
 
         const nameInput    = document.getElementById("name");
         const emailInput   = document.getElementById("email");
-        const phoneInput   = document.getElementById("phone"); 
+        const phoneInput   = document.getElementById("phone");
         const subjectInput = document.getElementById("subject");
         const messageInput = document.getElementById("message");
 
-        const name    = nameInput.value.trim(); 
+        const name    = nameInput.value.trim();
         const email   = emailInput.value.trim();
-        const phone   = phoneInput.value.trim(); 
+        const phone   = phoneInput.value.trim();
         const subject = subjectInput.value.trim();
-        const message = messageInput.value.trim(); 
+        const message = messageInput.value.trim();
 
         let isValid = true;
 
@@ -64,17 +64,28 @@ if (form) {
         }
 
         if (isValid) {
-            const banner = document.getElementById("successBanner");
-            banner.style.display = "block";
-            form.reset();
+            fetch("http://localhost:3000/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, phone, subject, message })
+            })
+            .then(res => res.json())
+            .then(data => {
+                const banner = document.getElementById("successBanner");
+                banner.style.display = "block";
+                form.reset();
 
-            [nameInput, emailInput, phoneInput, subjectInput, messageInput].forEach(input => {
-                input.classList.remove("valid");
+                [nameInput, emailInput, phoneInput, subjectInput, messageInput].forEach(input => {
+                    input.classList.remove("valid");
+                });
+
+                setTimeout(() => {
+                    banner.style.display = "none";
+                }, 5000);
+            })
+            .catch(err => {
+                console.error("שגיאה בשליחה:", err);
             });
-
-            setTimeout(() => {
-                banner.style.display = "none";
-            }, 5000);
         }
     });
 }
